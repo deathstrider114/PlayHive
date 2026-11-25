@@ -1,10 +1,11 @@
 "use client";
 
-import { useRef } from "react";
-import { Maximize2 } from "lucide-react";
+import { useRef, useState } from "react";
+import { Maximize2, LoaderCircle } from "lucide-react";
 
 export default function GameFrame({ src, title }: { src: string; title: string }) {
   const frameRef = useRef<HTMLIFrameElement>(null);
+  const [loaded, setLoaded] = useState(false);
 
   async function enterFullscreen() {
     const frame = frameRef.current;
@@ -21,7 +22,8 @@ export default function GameFrame({ src, title }: { src: string; title: string }
   }
 
   return (
-    <div className="game-frame-wrap">
+    <div className="game-frame-wrap" aria-busy={!loaded}>
+      {!loaded ? <div className="game-frame-loading"><LoaderCircle size={25}/><span>Loading {title}...</span></div> : null}
       <iframe
         ref={frameRef}
         src={src}
@@ -31,6 +33,7 @@ export default function GameFrame({ src, title }: { src: string; title: string }
         allowFullScreen
         loading="eager"
         referrerPolicy="strict-origin-when-cross-origin"
+        onLoad={() => setLoaded(true)}
       />
       <button
         className="frame-fullscreen"
