@@ -222,3 +222,7 @@ body::before{opacity:.24;background-size:30px 30px}
 .profile-section .heading h2{font-size:23px}
 .profile-empty{padding:26px;border-radius:17px;background:rgba(255,255,255,.4);border:1px dashed rgba(48,128,182,.22);color:#7892a6;font-size:12px;line-height:1.7}
 @media(max-width:560px){.profile-hero{padding:20px;align-items:flex-start}.profile-avatar{width:54px;height:54px;border-radius:17px}.profile-hero h1{font-size:23px}.profile-section .heading h2{font-size:21px}}
+
+
+.recent-game-card{min-width:0}
+.recent-game-card>small{display:block;padding:8px 4px 0;color:#8299aa;font-size:10px}
