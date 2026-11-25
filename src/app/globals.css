@@ -256,3 +256,11 @@ body::before{opacity:.24;background-size:30px 30px}
 .game-frame-loading svg{animation:playhive-spin 1.1s linear infinite}
 @keyframes playhive-spin{to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){.game-frame-loading svg{animation:none}}
+
+
+.profile-stats{grid-template-columns:repeat(4,minmax(0,1fr))}
+.level-progress-wrap{margin-top:11px;padding:15px 17px;border-radius:14px;background:rgba(255,255,255,.42);border:1px solid rgba(255,255,255,.78)}
+.level-progress-copy{display:flex;justify-content:space-between;gap:12px;color:#7892a6;font-size:9px;font-weight:700;letter-spacing:.4px}
+.level-progress-track{height:7px;margin-top:10px;border-radius:99px;background:rgba(70,137,184,.12);overflow:hidden}
+.level-progress-track>div{height:100%;border-radius:inherit;background:linear-gradient(90deg,#6bc6f3,#238bd5);box-shadow:0 2px 8px rgba(35,139,213,.22);transition:width .3s ease}
+@media(max-width:560px){.profile-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
