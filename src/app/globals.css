@@ -281,3 +281,25 @@ button,input,textarea,select{font-family:-apple-system,BlinkMacSystemFont,"Segoe
 
 
 h1,h2,h3,h4,h5,h6,.page-tile strong,.empty b,.profile-stats strong{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important}
+
+
+/* Consistent motion language across every route */
+html{scroll-behavior:smooth;scroll-padding-top:100px}
+.topbar nav a,.button,.section-link,.game-card,.category-tile,.category,.page-tile,.game-favourite,.frame-fullscreen{will-change:transform}
+.topbar nav a{transition:background .22s ease,color .22s ease,transform .22s cubic-bezier(.22,1,.36,1)}
+.topbar nav a:hover{transform:translateY(-1px)}
+.button{transition:transform .24s cubic-bezier(.22,1,.36,1),box-shadow .24s ease,background .24s ease}
+.button:active,.game-favourite:active,.frame-fullscreen:active{transform:scale(.96)}
+.section-link{display:inline-flex;align-items:center;gap:7px;transition:gap .22s ease,color .22s ease}
+.section-link:hover{gap:11px;color:#b98d1d}
+.game-card,.category-tile,.page-tile,.category{transition:transform .32s cubic-bezier(.22,1,.36,1),box-shadow .32s ease,border-color .32s ease}
+.game-card:hover,.category-tile:hover,.page-tile:hover{transform:translateY(-5px)}
+.game-card-art>span{transition:transform .38s cubic-bezier(.22,1,.36,1),filter .38s ease}
+.game-card:hover .game-card-art>span{transform:translateY(-4px) scale(1.08) rotate(-4deg);filter:drop-shadow(0 14px 15px rgba(40,50,60,.17))}
+.frame-fullscreen{z-index:3;cursor:pointer;transition:transform .2s ease,background .2s ease,box-shadow .2s ease}
+.frame-fullscreen:hover{transform:translateY(-2px);background:white;box-shadow:0 8px 22px #2223}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid rgba(50,145,210,.5);outline-offset:3px}
+@media(prefers-reduced-motion:reduce){
+ html{scroll-behavior:auto}
+ .topbar nav a,.button,.section-link,.game-card,.category-tile,.category,.page-tile,.game-favourite,.frame-fullscreen,.game-card-art>span{transition:none!important;transform:none!important}
+}
