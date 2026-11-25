@@ -1,10 +1,54 @@
-import { ArrowRight, Gamepad2, Search, Swords, CarFront, Puzzle, Compass, Ghost, Trophy, Heart, ShieldCheck } from "lucide-react";
+import { ArrowRight, Gamepad2, Search, Sparkles, Trophy, Zap } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { games } from "@/lib/games";
-const categories=[{name:"Action",note:"Fast-paced favourites",icon:Swords,tone:"peach"},{name:"Racing",note:"Put your foot down",icon:CarFront,tone:"blue"},{name:"Puzzle",note:"Give your brain a workout",icon:Puzzle,tone:"lilac"},{name:"Adventure",note:"Explore somewhere new",icon:Compass,tone:"mint"},{name:"Horror",note:"Play with the lights on",icon:Ghost,tone:"slate"},{name:"Sports",note:"Ready for game day",icon:Trophy,tone:"yellow"}];
-function Brand(){return <a className="brand" href="/"><span className="brand-mark">⬡</span><span>play<span>hive</span></span></a>}
-export default async function Home(){
+
+function Brand() {
+  return <a className="brand" href="/" aria-label="PlayHive home"><span className="brand-mark"><Gamepad2 size={19}/></span><span>playhive</span></a>;
+}
+
+export default async function Home() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
-  return <main className="shell"><header className="topbar glass"><Brand/><nav><a className="active" href="/">Discover</a><a href="/games">All games</a><a href="/categories">Categories</a><a href="/new">New</a></nav><div className="nav-actions"><a className="search" href="/search"><Search size={17}/> Search games</a><a className="button dark" href={user ? "/profile" : "/login"}>{user ? "My account" : "Sign in"} <ArrowRight size={15}/></a></div></header><section className="hero"><div><div className="pill"><i/> YOUR NEXT BREAK STARTS HERE</div><h1>Good games.<br/><span>Great little</span> escapes.</h1><p className="intro">Find something new, jump straight in, and lose track of time for all the right reasons.</p><div className="actions"><a className="button dark big" href="/games">Explore games <ArrowRight size={17}/></a><a className="button glass big" href="/categories">Browse categories</a></div><p className="note">✦ &nbsp;Play instantly. <b>Account optional.</b></p></div><div className="art"><div className="orbit"/><div className="orbit second"/><div className="art-back">✳</div><div className="art-front"><Gamepad2 size={94}/><small>PRESS START</small></div><span className="float one">✦ Pick up & play</span><span className="float two">♡ Save favourites</span></div></section><section className="quick glass"><Search/><div><b>What are you in the mood for?</b><small>Search for a game, genre or something new.</small></div><a className="button soft" href="/search">Find a game <ArrowRight size={15}/></a></section><section className="section"><div className="heading"><div><label>PICK YOUR VIBE</label><h2>A little bit of everything.</h2></div><a href="/categories">All categories →</a></div><div className="categories">{categories.map(({name,note,icon:Icon,tone})=><a className={`category ${tone}`} href={`/categories/${name.toLowerCase()}`} key={name}><span className="cat-icon"><Icon size={24}/></span><b>{name}</b><small>{note}</small><ArrowRight className="cat-arrow" size={17}/></a>)}</div></section><section className="section"><div className="heading"><div><label>THE GOOD STUFF</label><h2>Games worth your time.</h2><p>A growing collection of games from real developers.</p></div><span className="verified"><ShieldCheck size={14}/> Curated, not generated</span></div><div className="game-library-grid">{games.slice(0,3).map((game)=><a className={`game-card ${game.accent}`} href={`/play/${game.slug}`} key={game.slug}><div className="game-card-art"><span>{game.icon}</span><small>{game.category}</small></div><div className="game-card-copy"><div><h2>{game.title}</h2><p>{game.description}</p></div><span className="game-card-arrow"><ArrowRight size={17}/></span></div></a>)}</div></section><section className="join"><span className="trophy"><Trophy size={27}/></span><div><label>MAKE IT YOUR HIVE</label><h2>Your favourites, all in one place.</h2><p>Create a free account to save games, build your profile and collect achievements.</p></div><a className="button dark" href="/register">Create free account <ArrowRight size={16}/></a><Heart className="join-heart"/></section><footer><div><Brand/><p>Find your next favourite game.</p></div><div className="footer-links"><a href="/terms">Terms</a><a href="/privacy">Privacy</a><a href="/cookies">Cookies</a><a href="/cookie-settings">Cookie settings</a></div><small>© {new Date().getFullYear()} PlayHive. All rights reserved.</small></footer></main>
+  const featured = games.slice(0, 3);
+  const categories = [...new Set(games.map((game) => game.category))];
+
+  return (
+    <main className="shell home-shell">
+      <header className="topbar glass">
+        <Brand/>
+        <nav aria-label="Main navigation"><a className="active" href="/">Discover</a><a href="/games">Games</a><a href="/categories">Categories</a></nav>
+        <div className="nav-actions"><a className="search" href="/search"><Search size={16}/> Find a game</a><a className="button dark" href={user ? "/profile" : "/login"}>{user ? "My account" : "Sign in"} <ArrowRight size={15}/></a></div>
+      </header>
+      <section className="hero hero-new">
+        <div className="hero-copy">
+          <div className="eyebrow"><span className="eyebrow-dot"/> A SMALL WORLD OF BIG DISTRACTIONS</div>
+          <h1>One more game.<br/><span>Then one more.</span></h1>
+          <p className="intro">Quick games, good little challenges and new favourites. Pick something and play straight away.</p>
+          <div className="actions"><a className="button dark big" href="/games">Explore the games <ArrowRight size={17}/></a><a className="button glass big" href="/categories">Browse by category</a></div>
+          <div className="hero-meta"><span><Zap size={14}/> No downloads</span><i/><span>Free to play</span><i/><span>Account optional</span></div>
+        </div>
+        <div className="hero-stage" aria-hidden="true">
+          <div className="stage-glow"/><div className="stage-ring ring-a"/><div className="stage-ring ring-b"/>
+          <div className="stage-tile tile-back"><span>✳</span><small>TAKE A BREAK</small></div>
+          <div className="stage-tile tile-front"><Gamepad2 size={70}/><small>PRESS PLAY</small></div>
+          <div className="stage-float float-score"><Trophy size={16}/><span><b>Little wins</b><small>Count them all</small></span></div>
+          <div className="stage-float float-pick"><Sparkles size={16}/><span><b>Find your next</b><small>favourite game</small></span></div>
+        </div>
+      </section>
+      <section className="browse-strip glass"><div className="browse-icon"><Search size={19}/></div><div className="browse-copy"><b>Not sure what to play?</b><span>Search the library and see what catches your eye.</span></div><a href="/search" className="browse-link">Find a game <ArrowRight size={15}/></a></section>
+      <section className="section games-section">
+        <div className="heading"><div><label>START HERE</label><h2>Good games, ready when you are.</h2><p>Hand-picked games you can play right here on PlayHive.</p></div><a href="/games" className="section-link">See all {games.length} games <ArrowRight size={15}/></a></div>
+        <div className="game-library-grid home-game-grid">{featured.map((game, index) => <a className={`game-card ${game.accent}`} href={`/play/${game.slug}`} key={game.slug}>
+          <div className="game-card-art"><span>{game.icon}</span><small>{game.category}</small><em>0{index + 1}</em></div>
+          <div className="game-card-copy"><div><h2>{game.title}</h2><p>{game.description}</p></div><span className="game-card-arrow"><ArrowRight size={17}/></span></div>
+        </a>)}</div>
+      </section>
+      <section className="section category-section">
+        <div className="heading"><div><label>FIND YOUR MOOD</label><h2>What sounds good?</h2></div><a href="/categories" className="section-link">All categories <ArrowRight size={15}/></a></div>
+        <div className="category-pills">{categories.map((category) => <a href={`/categories?category=${encodeURIComponent(category)}`} key={category}>{category}<ArrowRight size={14}/></a>)}</div>
+      </section>
+      <section className="join join-new"><div className="join-mark"><Trophy size={22}/></div><div><label>MAKE IT YOUR HIVE</label><h2>Keep your favourites close.</h2><p>Make a free account to save games and, soon, track your scores and achievements.</p></div><a className="button dark" href={user ? "/profile" : "/register"}>{user ? "Your account" : "Create a free account"} <ArrowRight size={15}/></a></section>
+      <footer className="site-footer"><div><Brand/><p>A good place to lose five minutes. Or fifty.</p></div><div className="footer-links"><a href="/terms">Terms</a><a href="/privacy">Privacy</a><a href="/cookies">Cookies</a><a href="/cookie-settings">Cookie settings</a></div><small>© {new Date().getFullYear()} PlayHive</small></footer>
+    </main>
+  );
 }
