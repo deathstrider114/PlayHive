@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { ArrowRight, Clock, Heart, UserRound } from "lucide-react";
+import { ArrowRight, Clock, Gamepad2, Heart, UserRound } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import SignOutButton from "@/components/sign-out-button";
 import GameCard from "@/components/game-card";
@@ -30,7 +30,7 @@ export default async function ProfilePage() {
 
   return <main className="shell inner-shell">
     <header className="topbar glass">
-      <Link className="brand" href="/"><span className="brand-mark"><UserRound size={19}/></span><span>playhive</span></Link>
+      <Link className="brand" href="/"><span className="brand-mark"><Gamepad2 size={19}/></span><span>play<span>hive</span></span></Link>
       <nav><Link href="/">Discover</Link><Link href="/games">Games</Link><Link href="/categories">Categories</Link></nav>
       <SignOutButton/>
     </header>
