@@ -264,3 +264,17 @@ body::before{opacity:.24;background-size:30px 30px}
 .level-progress-track{height:7px;margin-top:10px;border-radius:99px;background:rgba(70,137,184,.12);overflow:hidden}
 .level-progress-track>div{height:100%;border-radius:inherit;background:linear-gradient(90deg,#6bc6f3,#238bd5);box-shadow:0 2px 8px rgba(35,139,213,.22);transition:width .3s ease}
 @media(max-width:560px){.profile-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+
+/* Final typography pass: use the same clean system-font feel as the portfolio */
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.hero-new h1,.heading h2,.join h2,.brand,.library-intro h1,.page-title,.profile-hero h1,.profile-section .heading h2,.game-card-copy h2,.achievement-card strong,.profile-avatar{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important}
+button,input,textarea,select{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.empty-icon{background:rgba(91,183,242,.15);color:#2787c6}
+.verified{background:rgba(224,243,255,.78);color:#347fae;border:1px solid rgba(255,255,255,.9)}
+.tile-back,.tile-front{animation:playhive-drift 7s ease-in-out infinite}
+.tile-front{animation-delay:-3.5s}
+.stage-float{animation:playhive-drift 6s ease-in-out infinite}
+.float-pick{animation-delay:-2.8s}
+@keyframes playhive-drift{0%,100%{translate:0 0}50%{translate:0 -7px}}
+@media(prefers-reduced-motion:reduce){.tile-back,.tile-front,.stage-float{animation:none}}
