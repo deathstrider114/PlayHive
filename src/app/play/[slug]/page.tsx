@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { ArrowLeft, ExternalLink, Maximize2, ShieldCheck } from "lucide-react";
+import { ArrowLeft, ExternalLink, ShieldCheck } from "lucide-react";
 import { notFound } from "next/navigation";
+import GameFrame from "@/components/game-frame";
 import { gameEmbedUrl, games, getGame } from "@/lib/games";
 
 export function generateStaticParams() {
@@ -25,19 +26,7 @@ export default async function PlayPage({ params }: { params: Promise<{ slug: str
           <div><div className="play-kicker"><ShieldCheck size={14}/> OPEN-SOURCE GAME</div><h1>{game.title}</h1><p>{game.description}</p></div>
           <a className="button glass" href={embedUrl} target="_blank" rel="noreferrer">Open separately <ExternalLink size={15}/></a>
         </div>
-        <div className="game-frame-wrap">
-          <iframe
-            key={game.slug}
-            src={embedUrl}
-            title={game.title}
-            className="game-frame"
-            allow="fullscreen; gamepad"
-            allowFullScreen
-            loading="eager"
-            referrerPolicy="strict-origin-when-cross-origin"
-          />
-          <a className="frame-fullscreen" href={embedUrl} target="_blank" rel="noreferrer" aria-label="Open game in a new tab"><Maximize2 size={17}/></a>
-        </div>
+        <GameFrame src={embedUrl} title={game.title} />
         <div className="game-credit">
           <span>Game by <a href="https://github.com/opengames-dev/opengames-dev.github.io" target="_blank" rel="noreferrer">OpenGames contributors</a></span>
           <span>Shared under the MIT License</span>
