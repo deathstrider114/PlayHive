@@ -1,4 +1,5 @@
 import { ArrowRight, Gamepad2, Search, Sparkles, Trophy, Zap } from "lucide-react";
+import GameCard from "@/components/game-card";
 import { createClient } from "@/lib/supabase/server";
 import { games } from "@/lib/games";
 
@@ -38,10 +39,7 @@ export default async function Home() {
       <section className="browse-strip glass"><div className="browse-icon"><Search size={19}/></div><div className="browse-copy"><b>Not sure what to play?</b><span>Search the library and see what catches your eye.</span></div><a href="/search" className="browse-link">Find a game <ArrowRight size={15}/></a></section>
       <section className="section games-section">
         <div className="heading"><div><label>START HERE</label><h2>Good games, ready when you are.</h2><p>Hand-picked games you can play right here on PlayHive.</p></div><a href="/games" className="section-link">See all {games.length} games <ArrowRight size={15}/></a></div>
-        <div className="game-library-grid home-game-grid">{featured.map((game, index) => <a className={`game-card ${game.accent}`} href={`/play/${game.slug}`} key={game.slug}>
-          <div className="game-card-art"><span>{game.icon}</span><small>{game.category}</small><em>0{index + 1}</em></div>
-          <div className="game-card-copy"><div><h2>{game.title}</h2><p>{game.description}</p></div><span className="game-card-arrow"><ArrowRight size={17}/></span></div>
-        </a>)}</div>
+        <div className="game-library-grid home-game-grid">{featured.map((game) => <GameCard game={game} key={game.slug}/>)}</div>
       </section>
       <section className="section category-section">
         <div className="heading"><div><label>FIND YOUR MOOD</label><h2>What sounds good?</h2></div><a href="/categories" className="section-link">All categories <ArrowRight size={15}/></a></div>
