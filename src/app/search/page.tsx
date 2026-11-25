@@ -1,5 +1,19 @@
-"use client";
-import { useMemo, useState } from "react";
-import { ArrowRight, Search, Swords, CarFront, Puzzle, Compass, Ghost, Trophy } from "lucide-react";
-const categories=[{name:"Action",note:"Fast-paced favourites",href:"/categories/action",Icon:Swords},{name:"Racing",note:"Put your foot down",href:"/categories/racing",Icon:CarFront},{name:"Puzzle",note:"Give your brain a workout",href:"/categories/puzzle",Icon:Puzzle},{name:"Adventure",note:"Explore somewhere new",href:"/categories/adventure",Icon:Compass},{name:"Horror",note:"Play with the lights on",href:"/categories/horror",Icon:Ghost},{name:"Sports",note:"Ready for game day",href:"/categories/sports",Icon:Trophy}];
-export default function SearchPage(){const [query,setQuery]=useState("");const results=useMemo(()=>categories.filter(c=>(c.name+" "+c.note).toLowerCase().includes(query.toLowerCase())),[query]);return <main className="shell"><header className="topbar glass"><a className="brand" href="/"><span className="brand-mark">⬡</span><span>play<span>hive</span></span></a><a className="button soft" href="/games">All games <ArrowRight size={15}/></a></header><section className="page-wrap"><label className="page-kicker">WHAT ARE YOU IN THE MOOD FOR?</label><h1 className="page-title">Find something fun.</h1><p className="page-lead">Search by genre while we get the first games ready for the library.</p><div className="page-search" style={{marginTop:28,width:"100%",maxWidth:650}}><Search size={19}/><input aria-label="Search categories" placeholder="Try action, racing, puzzles..." value={query} onChange={e=>setQuery(e.target.value)}/></div><div className="page-toolbar"><b>{query?"Matches for "+query:"Browse categories"}</b><small style={{color:"#858a98"}}>{results.length} {results.length===1?"category":"categories"}</small></div><div className="page-grid">{results.map(({name,note,href,Icon})=><a className="page-tile glass" href={href} key={name}><span style={{display:"flex",justifyContent:"space-between"}}><Icon size={25}/><ArrowRight size={16}/></span><span><strong>{name}</strong><br/><small>{note}</small></span></a>)}</div>{results.length===0&&<div className="page-empty glass"><div><h2>No categories found.</h2><p>Try a different search. New games and genres will appear here as the library grows.</p></div></div>}</section></main>}
+import Link from "next/link";
+import { ArrowLeft, Gamepad2 } from "lucide-react";
+import GamesBrowser from "@/components/games-browser";
+
+export default function SearchPage() {
+  return <main className="shell inner-shell">
+    <header className="topbar glass">
+      <Link className="brand" href="/"><span className="brand-mark"><Gamepad2 size={19}/></span><span>playhive</span></Link>
+      <nav><Link href="/">Discover</Link><Link href="/games">Games</Link><Link href="/categories">Categories</Link></nav>
+      <Link className="button dark" href="/games"><ArrowLeft size={15}/> All games</Link>
+    </header>
+    <section className="page-wrap library-page">
+      <div className="eyebrow"><span className="eyebrow-dot"/> THE WHOLE LIBRARY</div>
+      <h1 className="page-title">What do you<br/><span>feel like playing?</span></h1>
+      <p className="page-lead">Search titles, browse genres and find something new.</p>
+      <GamesBrowser/>
+    </section>
+  </main>;
+}
