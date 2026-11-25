@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft, ExternalLink, ShieldCheck } from "lucide-react";
+import { ArrowLeft, ExternalLink, Gamepad2, ShieldCheck } from "lucide-react";
 import { notFound } from "next/navigation";
 import GameFrame from "@/components/game-frame";
 import { gameEmbedUrl, games, getGame } from "@/lib/games";
@@ -25,7 +25,7 @@ export default async function PlayPage({ params }: { params: Promise<{ slug: str
   return (
     <main className="shell">
       <header className="topbar glass">
-        <Link className="brand" href="/"><span className="brand-mark">⬡</span><span>play<span>hive</span></span></Link>
+        <Link className="brand" href="/"><span className="brand-mark"><Gamepad2 size={19}/></span><span>play<span>hive</span></span></Link>
         <nav><Link href="/">Discover</Link><Link className="active" href="/games">Games</Link><Link href="/categories">Categories</Link></nav>
         <Link className="button dark" href="/games"><ArrowLeft size={15}/> Back to games</Link>
       </header>
