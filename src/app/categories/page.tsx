@@ -1,3 +1,39 @@
-import { ArrowRight, Swords, CarFront, Puzzle, Compass, Ghost, Trophy } from "lucide-react";
-const categories=[["Action","Fast-paced favourites","/categories/action","peach",Swords],["Racing","Put your foot down","/categories/racing","blue",CarFront],["Puzzle","Give your brain a workout","/categories/puzzle","lilac",Puzzle],["Adventure","Explore somewhere new","/categories/adventure","mint",Compass],["Horror","Play with the lights on","/categories/horror","slate",Ghost],["Sports","Ready for game day","/categories/sports","yellow",Trophy]] as const;
-export default function Categories(){return <main className="shell"><header className="topbar glass"><a className="brand" href="/"><span className="brand-mark">⬡</span><span>play<span>hive</span></span></a><a className="button dark" href="/games">All games <ArrowRight size={15}/></a></header><section className="page-wrap"><label className="page-kicker">FIND YOUR KIND OF FUN</label><h1 className="page-title">Pick a category.</h1><p className="page-lead">From quick little puzzles to full-on adventures, find the kind of game you're in the mood for.</p><div className="page-grid" style={{marginTop:32}}>{categories.map(([name,note,url,tone,Icon])=><a className={"page-tile "+tone} href={url} key={name}><span style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}><Icon size={27}/><ArrowRight size={17}/></span><span><strong>{name}</strong><br/><small>{note}</small></span></a>)}</div></section></main>}
+import Link from "next/link";
+import { ArrowRight, Gamepad2, Puzzle, Zap, Crosshair, Sparkles } from "lucide-react";
+import { games } from "@/lib/games";
+
+const icons = { Arcade: Zap, Puzzle, Classic: Gamepad2, Action: Crosshair, Casual: Sparkles } as const;
+const descriptions: Record<string, string> = {
+  Arcade: "Quick rounds, high scores and one-more-go games.",
+  Puzzle: "Take your time, spot the pattern and work it out.",
+  Classic: "The familiar games that never get old.",
+  Action: "Fast reactions and a little bit of chaos.",
+  Casual: "Easy to pick up whenever you have a minute.",
+};
+
+export default function Categories() {
+  const categories = [...new Set(games.map((game) => game.category))];
+  return <main className="shell inner-shell">
+    <header className="topbar glass">
+      <Link className="brand" href="/"><span className="brand-mark"><Gamepad2 size={19}/></span><span>playhive</span></Link>
+      <nav><Link href="/">Discover</Link><Link href="/games">Games</Link><Link className="active" href="/categories">Categories</Link></nav>
+      <Link className="button dark" href="/games">All games <ArrowRight size={15}/></Link>
+    </header>
+    <section className="page-wrap library-page">
+      <div className="eyebrow"><span className="eyebrow-dot"/> BROWSE BY MOOD</div>
+      <h1 className="page-title">Pick your kind<br/><span>of game.</span></h1>
+      <p className="page-lead">A few different ways to find something worth playing.</p>
+      <div className="page-grid category-grid" style={{marginTop:34}}>
+        {categories.map((category) => {
+          const Icon = icons[category as keyof typeof icons] ?? Gamepad2;
+          const count = games.filter((game) => game.category === category).length;
+          return <Link className="page-tile category-tile" href={`/games?category=${encodeURIComponent(category)}`} key={category}>
+            <span className="category-tile-icon"><Icon size={24}/><ArrowRight size={16}/></span>
+            <span><strong>{category}</strong><br/><small>{descriptions[category] ?? "Browse this collection."}</small></span>
+            <em>{count} {count === 1 ? "game" : "games"}</em>
+          </Link>;
+        })}
+      </div>
+    </section>
+  </main>;
+}
