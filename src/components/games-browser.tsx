@@ -34,6 +34,6 @@ export default function GamesBrowser() {
     </div>
     <div className="filter-row" aria-label="Filter by category">{filters.map((filter) => <button type="button" className={category === filter ? "filter-chip active" : "filter-chip"} onClick={() => setCategory(filter)} key={filter}>{filter}</button>)}</div>
     <div className="library-result-line"><span>{visibleGames.length} {visibleGames.length === 1 ? "game" : "games"}</span><span>Every game is free to play</span></div>
-    {visibleGames.length ? <div className="game-library-grid library-grid">{visibleGames.map((game, index) => <GameCard game={game} key={game.slug}/>)}</div> : <div className="library-empty"><Gamepad2 size={27}/><h2>No games found</h2><p>Try another search or choose a different category.</p><button type="button" onClick={() => { setQuery(""); setCategory("All"); }}>Clear filters</button></div>}
+    {visibleGames.length ? <div className="game-library-grid library-grid">{visibleGames.map((game) => <GameCard game={game} key={game.slug}/>)}</div> : <div className="library-empty"><Gamepad2 size={27}/><h2>No games found</h2><p>Try another search or choose a different category.</p><button type="button" onClick={() => { setQuery(""); setCategory("All"); }}>Clear filters</button></div>}
   </>;
 }
