@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import Link from "next/link";
-import { ArrowRight, Search, SlidersHorizontal, Gamepad2 } from "lucide-react";
+import GameCard from "@/components/game-card";
+import { Search, SlidersHorizontal, Gamepad2 } from "lucide-react";
 import { games } from "@/lib/games";
 
 const filters = ["All", ...Array.from(new Set(games.map((game) => game.category)))];
@@ -34,9 +34,6 @@ export default function GamesBrowser() {
     </div>
     <div className="filter-row" aria-label="Filter by category">{filters.map((filter) => <button type="button" className={category === filter ? "filter-chip active" : "filter-chip"} onClick={() => setCategory(filter)} key={filter}>{filter}</button>)}</div>
     <div className="library-result-line"><span>{visibleGames.length} {visibleGames.length === 1 ? "game" : "games"}</span><span>Every game is free to play</span></div>
-    {visibleGames.length ? <div className="game-library-grid library-grid">{visibleGames.map((game, index) => <Link className={`game-card ${game.accent}`} href={`/play/${game.slug}`} key={game.slug}>
-      <div className="game-card-art"><span>{game.icon}</span><small>{game.category}</small><em>{String(index + 1).padStart(2, "0")}</em></div>
-      <div className="game-card-copy"><div><h2>{game.title}</h2><p>{game.description}</p></div><span className="game-card-arrow"><ArrowRight size={17}/></span></div>
-    </Link>)}</div> : <div className="library-empty"><Gamepad2 size={27}/><h2>No games found</h2><p>Try another search or choose a different category.</p><button type="button" onClick={() => { setQuery(""); setCategory("All"); }}>Clear filters</button></div>}
+    {visibleGames.length ? <div className="game-library-grid library-grid">{visibleGames.map((game, index) => <GameCard game={game} key={game.slug}/>)}</div> : <div className="library-empty"><Gamepad2 size={27}/><h2>No games found</h2><p>Try another search or choose a different category.</p><button type="button" onClick={() => { setQuery(""); setCategory("All"); }}>Clear filters</button></div>}
   </>;
 }
