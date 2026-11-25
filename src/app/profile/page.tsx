@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { ArrowRight, Clock3, Heart, UserRound } from "lucide-react";
+import { ArrowRight, Clock, Heart, UserRound } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import SignOutButton from "@/components/sign-out-button";
 import GameCard from "@/components/game-card";
@@ -52,7 +52,7 @@ export default async function ProfilePage() {
       </section>
 
       <section className="profile-section">
-        <div className="heading"><div><label><Clock3 size={12} style={{display:"inline",verticalAlign:"-2px"}}/> PICK UP WHERE YOU LEFT OFF</label><h2>Recently played</h2></div><Link href="/games" className="section-link">Browse library <ArrowRight size={15}/></Link></div>
+        <div className="heading"><div><label><Clock size={12} style={{display:"inline",verticalAlign:"-2px"}}/> PICK UP WHERE YOU LEFT OFF</label><h2>Recently played</h2></div><Link href="/games" className="section-link">Browse library <ArrowRight size={15}/></Link></div>
         {recent.length ? <div className="game-library-grid">{recent.map(({game,playCount}) => <div key={game.slug} className="recent-game-card"><GameCard game={game}/><small>Played {playCount} {playCount === 1 ? "time" : "times"}</small></div>)}</div> : <div className="profile-empty">Games you play will appear here, so you can jump back in next time.</div>}
       </section>
     </section>
