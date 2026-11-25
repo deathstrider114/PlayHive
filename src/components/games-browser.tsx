@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Search, SlidersHorizontal, Gamepad2 } from "lucide-react";
 import { games } from "@/lib/games";
@@ -11,6 +11,11 @@ export default function GamesBrowser() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");
   const [sort, setSort] = useState("featured");
+
+  useEffect(() => {
+    const requested = new URLSearchParams(window.location.search).get("category");
+    if (requested && filters.includes(requested)) setCategory(requested);
+  }, []);
 
   const visibleGames = useMemo(() => {
     const filtered = games.filter((game) => {
