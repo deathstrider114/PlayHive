@@ -5,7 +5,7 @@ import GamesBrowser from "@/components/games-browser";
 export default function SearchPage() {
   return <main className="shell inner-shell">
     <header className="topbar glass">
-      <Link className="brand" href="/"><span className="brand-mark"><Gamepad2 size={19}/></span><span>playhive</span></Link>
+      <Link className="brand" href="/"><span className="brand-mark"><Gamepad2 size={19}/></span><span>play<span>hive</span></span></Link>
       <nav><Link href="/">Discover</Link><Link href="/games">Games</Link><Link href="/categories">Categories</Link></nav>
       <Link className="button dark" href="/games"><ArrowLeft size={15}/> All games</Link>
     </header>
