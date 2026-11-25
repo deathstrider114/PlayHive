@@ -1,4 +1,4 @@
-import { ArrowRight, Gamepad2, LockKeyhole } from "lucide-react";
+import { Gamepad2, LockKeyhole } from "lucide-react";
 import AuthForm from "@/components/auth-form";
 
 export default function Login() {
