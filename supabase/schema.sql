@@ -19,6 +19,11 @@ create table if not exists public.profiles (
   )
 );
 
+-- Add progression columns when profiles already existed before this schema ran.
+alter table public.profiles
+  add column if not exists xp integer not null default 0 check (xp >= 0),
+  add column if not exists level integer not null default 1 check (level >= 1);
+
 create table if not exists public.user_favourites (
   user_id uuid not null references auth.users(id) on delete cascade,
   game_slug text not null,
