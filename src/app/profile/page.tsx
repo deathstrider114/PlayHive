@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { ArrowRight, Clock, Gamepad2, Heart, UserRound } from "lucide-react";
+import { ArrowRight, Clock, Gamepad2, Heart, Sparkles, UserRound } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import SignOutButton from "@/components/sign-out-button";
 import GameCard from "@/components/game-card";
@@ -14,7 +14,7 @@ export default async function ProfilePage() {
   const [{ data: profile }, { data: favouriteRows }, { data: recentRows }] = await Promise.all([
     supabase.from("profiles").select("username, display_name, avatar_url, bio, xp, level").eq("id", user.id).maybeSingle(),
     supabase.from("user_favourites").select("game_slug").eq("user_id", user.id).order("created_at", { ascending: false }),
-    supabase.from("recently_played").select("game_slug, last_played_at, play_count").eq("user_id", user.id).order("last_played_at", { ascending: false }).limit(8),
+    supabase.from("recently_played").select("game_slug, last_played_at, play_count").eq("user_id", user.id).order("last_played_at", { ascending: false }).limit(30),
   ]);
 
   const favourites = (favouriteRows ?? []).flatMap((row) => {
@@ -27,6 +27,15 @@ export default async function ProfilePage() {
   });
   const displayName = profile?.display_name || user.email?.split("@")[0] || "Player";
   const initials = displayName.slice(0, 1).toUpperCase();
+  const totalPlays = (recentRows ?? []).reduce((total, row) => total + row.play_count, 0);
+  const playedCategories = new Set(recent.map(({ game }) => game.category)).size;
+  const achievements = [
+    { title: "First game", detail: "Play your first game.", unlocked: totalPlays >= 1, icon: "🎮" },
+    { title: "Game hopper", detail: "Try five different games.", unlocked: recent.length >= 5, icon: "🧭" },
+    { title: "Back for more", detail: "Play ten sessions.", unlocked: totalPlays >= 10, icon: "🔁" },
+    { title: "Collector", detail: "Save five favourite games.", unlocked: favourites.length >= 5, icon: "💙" },
+    { title: "A bit of everything", detail: "Play across three categories.", unlocked: playedCategories >= 3, icon: "✨" },
+  ];
 
   return <main className="shell inner-shell">
     <header className="topbar glass">
@@ -45,6 +54,17 @@ export default async function ProfilePage() {
         </div>
         <span className="verified"><UserRound size={14}/> Player</span>
       </div>
+
+      <div className="profile-stats">
+        <div><strong>{recent.length}</strong><span>Games played</span></div>
+        <div><strong>{totalPlays}</strong><span>Total sessions</span></div>
+        <div><strong>{favourites.length}</strong><span>Favourites</span></div>
+      </div>
+
+      <section className="profile-section">
+        <div className="heading"><div><label><Sparkles size={12} style={{display:"inline",verticalAlign:"-2px"}}/> MILESTONES</label><h2>Achievements</h2></div><span className="profile-achievement-count">{achievements.filter((item) => item.unlocked).length} / {achievements.length} unlocked</span></div>
+        <div className="achievement-grid">{achievements.map((achievement) => <div className={achievement.unlocked ? "achievement-card unlocked" : "achievement-card"} key={achievement.title}><span>{achievement.icon}</span><div><strong>{achievement.title}</strong><small>{achievement.detail}</small></div><i>{achievement.unlocked ? "UNLOCKED" : "LOCKED"}</i></div>)}</div>
+      </section>
 
       <section className="profile-section">
         <div className="heading"><div><label><Heart size={12} style={{display:"inline",verticalAlign:"-2px"}}/> SAVED FOR LATER</label><h2>Your favourites</h2></div><Link href="/games" className="section-link">Find more games <ArrowRight size={15}/></Link></div>
