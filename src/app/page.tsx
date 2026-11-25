@@ -11,13 +11,14 @@ export default async function Home() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   const featured = games.slice(0, 3);
+  const latest = games.slice(6, 9);
   const categories = [...new Set(games.map((game) => game.category))];
 
   return (
     <main className="shell home-shell">
       <header className="topbar glass">
         <Brand/>
-        <nav aria-label="Main navigation"><a className="active" href="/">Discover</a><a href="/games">Games</a><a href="/categories">Categories</a></nav>
+        <nav aria-label="Main navigation"><a className="active" href="/">Discover</a><a href="/games">Games</a><a href="/categories">Categories</a><a href="/new">New</a></nav>
         <div className="nav-actions"><a className="search" href="/search"><Search size={16}/> Find a game</a><a className="button dark" href={user ? "/profile" : "/login"}>{user ? "My account" : "Sign in"} <ArrowRight size={15}/></a></div>
       </header>
       <section className="hero hero-new">
@@ -40,6 +41,10 @@ export default async function Home() {
       <section className="section games-section">
         <div className="heading"><div><label>START HERE</label><h2>Good games, ready when you are.</h2><p>Hand-picked games you can play right here on PlayHive.</p></div><a href="/games" className="section-link">See all {games.length} games <ArrowRight size={15}/></a></div>
         <div className="game-library-grid home-game-grid">{featured.map((game) => <GameCard game={game} key={game.slug}/>)}</div>
+      </section>
+      <section className="section latest-section">
+        <div className="heading"><div><label>JUST ADDED</label><h2>Fresh from the hive.</h2><p>A few new additions to try next.</p></div><a href="/new" className="section-link">See what's new <ArrowRight size={15}/></a></div>
+        <div className="game-library-grid">{latest.map((game) => <GameCard game={game} key={game.slug}/>)}</div>
       </section>
       <section className="section category-section">
         <div className="heading"><div><label>FIND YOUR MOOD</label><h2>What sounds good?</h2></div><a href="/categories" className="section-link">All categories <ArrowRight size={15}/></a></div>
