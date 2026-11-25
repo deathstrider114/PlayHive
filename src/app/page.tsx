@@ -4,7 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { games } from "@/lib/games";
 
 function Brand() {
-  return <a className="brand" href="/" aria-label="PlayHive home"><span className="brand-mark"><Gamepad2 size={19}/></span><span>playhive</span></a>;
+  return <a className="brand" href="/" aria-label="PlayHive home"><span className="brand-mark"><Gamepad2 size={19}/></span><span>play<span>hive</span></span></a>;
 }
 
 export default async function Home() {
