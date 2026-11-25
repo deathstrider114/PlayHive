@@ -4,6 +4,7 @@ import { ArrowRight, Clock, Gamepad2, Heart, Sparkles, UserRound } from "lucide-
 import { createClient } from "@/lib/supabase/server";
 import SignOutButton from "@/components/sign-out-button";
 import GameCard from "@/components/game-card";
+import ProfileEditor from "@/components/profile-editor";
 import { getGame } from "@/lib/games";
 
 export default async function ProfilePage() {
@@ -54,6 +55,8 @@ export default async function ProfilePage() {
         </div>
         <span className="verified"><UserRound size={14}/> Player</span>
       </div>
+
+      <ProfileEditor initialName={profile?.display_name || displayName} initialUsername={profile?.username || ""} initialBio={profile?.bio || ""}/>
 
       <div className="profile-stats">
         <div><strong>{recent.length}</strong><span>Games played</span></div>
