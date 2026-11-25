@@ -16,7 +16,7 @@ export default function Categories() {
   return <main className="shell inner-shell">
     <header className="topbar glass">
       <Link className="brand" href="/"><span className="brand-mark"><Gamepad2 size={19}/></span><span>play<span>hive</span></span></Link>
-      <nav><Link href="/">Discover</Link><Link href="/games">Games</Link><Link className="active" href="/categories">Categories</Link></nav>
+      <nav><Link href="/">Discover</Link><Link href="/games">Games</Link><Link className="active" href="/categories">Categories</Link><Link href="/new">New</Link></nav>
       <Link className="button dark" href="/games">All games <ArrowRight size={15}/></Link>
     </header>
     <section className="page-wrap library-page">
