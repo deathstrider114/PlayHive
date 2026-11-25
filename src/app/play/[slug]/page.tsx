@@ -14,11 +14,19 @@ export default async function PlayPage({ params }: { params: Promise<{ slug: str
   if (!game) notFound();
 
   const embedUrl = gameEmbedUrl(game.slug);
+  const creator = game.provider === "mashukui" ? "mashukui" : "OpenGames contributors";
+  const sourceUrl = game.provider === "mashukui"
+    ? "https://github.com/mashukui/web-games"
+    : "https://github.com/opengames-dev/opengames-dev.github.io";
+  const licenseUrl = game.provider === "mashukui"
+    ? "https://github.com/mashukui/web-games/blob/main/LICENSE"
+    : "https://github.com/opengames-dev/opengames-dev.github.io/blob/main/LICENSE";
+
   return (
     <main className="shell">
       <header className="topbar glass">
         <Link className="brand" href="/"><span className="brand-mark">⬡</span><span>play<span>hive</span></span></Link>
-        <nav><Link href="/">Discover</Link><Link className="active" href="/games">All games</Link><Link href="/categories">Categories</Link></nav>
+        <nav><Link href="/">Discover</Link><Link className="active" href="/games">Games</Link><Link href="/categories">Categories</Link></nav>
         <Link className="button dark" href="/games"><ArrowLeft size={15}/> Back to games</Link>
       </header>
       <section className="play-page">
@@ -28,8 +36,8 @@ export default async function PlayPage({ params }: { params: Promise<{ slug: str
         </div>
         <GameFrame src={embedUrl} title={game.title} />
         <div className="game-credit">
-          <span>Game by <a href="https://github.com/opengames-dev/opengames-dev.github.io" target="_blank" rel="noreferrer">OpenGames contributors</a></span>
-          <span>Shared under the MIT License</span>
+          <span>Game by <a href={sourceUrl} target="_blank" rel="noreferrer">{creator}</a></span>
+          <span>Shared under the <a href={licenseUrl} target="_blank" rel="noreferrer">MIT License</a></span>
           <Link href="/games">More games on PlayHive <span aria-hidden>→</span></Link>
         </div>
       </section>
