@@ -98,3 +98,10 @@ create trigger profiles_set_updated_at
 
 create index if not exists recently_played_user_last_played_idx
   on public.recently_played (user_id, last_played_at desc);
+
+-- Keep progression values server-controlled. Users can edit their public
+-- profile fields, but cannot grant themselves XP or levels through the API.
+revoke update (xp, level) on table public.profiles from authenticated;
+grant update (username, display_name, avatar_url, bio) on table public.profiles to authenticated;
+revoke insert (xp, level) on table public.profiles from authenticated;
+grant insert (id, username, display_name, avatar_url, bio) on table public.profiles to authenticated;
