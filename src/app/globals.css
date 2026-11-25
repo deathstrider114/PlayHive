@@ -239,3 +239,14 @@ body::before{opacity:.24;background-size:30px 30px}
 .achievement-card>div{flex:1;min-width:0}.achievement-card strong{display:block;font:700 12px Manrope;color:#244b68}.achievement-card small{display:block;margin-top:3px;font-size:10px;color:#8299aa}
 .achievement-card i{font-style:normal;font-size:8px;font-weight:800;letter-spacing:.6px;color:#94a8b7}.achievement-card.unlocked i{color:#2985bd}
 @media(max-width:560px){.profile-stats{gap:7px}.profile-stats>div{padding:13px}.profile-stats strong{font-size:20px}.achievement-grid{grid-template-columns:1fr}.profile-achievement-count{font-size:9px}}
+
+
+.profile-editor{margin-top:22px;padding:23px;border-radius:19px;background:rgba(255,255,255,.42);border:1px solid rgba(255,255,255,.82);box-shadow:inset 0 1px white}
+.profile-editor .heading{margin-bottom:16px}.profile-editor .heading h2{font-size:20px}
+.profile-edit-field{display:grid;gap:7px;margin:13px 0;color:#315b78;font-size:11px;font-weight:700}
+.profile-edit-field span small{display:block;margin-top:3px;color:#8ba0b0;font-size:9px;font-weight:500}
+.profile-edit-field input,.profile-edit-field textarea{width:100%;padding:12px 13px;border:1px solid rgba(51,121,168,.15);border-radius:11px;outline:0;background:rgba(255,255,255,.7);font:500 12px 'DM Sans',sans-serif;color:#173b57;resize:vertical}
+.profile-edit-field input:focus,.profile-edit-field textarea:focus{border-color:#3699d6;box-shadow:0 0 0 3px rgba(54,153,214,.12)}
+.profile-form-error,.profile-form-success{margin:10px 0;padding:10px 12px;border-radius:10px;font-size:11px}
+.profile-form-error{background:#fff0f0;color:#a33e49}.profile-form-success{background:#eaf7ef;color:#34764d}
+.profile-editor>.button{border:0;cursor:pointer}
