@@ -26,7 +26,7 @@ export default async function PlayPage({ params }: { params: Promise<{ slug: str
     <main className="shell">
       <header className="topbar glass">
         <Link className="brand" href="/"><span className="brand-mark"><Gamepad2 size={19}/></span><span>play<span>hive</span></span></Link>
-        <nav><Link href="/">Discover</Link><Link className="active" href="/games">Games</Link><Link href="/categories">Categories</Link></nav>
+        <nav><Link href="/">Discover</Link><Link className="active" href="/games">Games</Link><Link href="/categories">Categories</Link><Link href="/new">New</Link></nav>
         <Link className="button dark" href="/games"><ArrowLeft size={15}/> Back to games</Link>
       </header>
       <section className="play-page">
