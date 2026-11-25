@@ -13,7 +13,7 @@ export default async function ProfilePage() {
   if (!user) redirect("/login");
 
   const [{ data: profile }, { data: favouriteRows }, { data: recentRows }] = await Promise.all([
-    supabase.from("profiles").select("username, display_name, avatar_url, bio, xp, level").eq("id", user.id).maybeSingle(),
+    supabase.from("profiles").select("username, display_name, avatar_url, bio").eq("id", user.id).maybeSingle(),
     supabase.from("user_favourites").select("game_slug").eq("user_id", user.id).order("created_at", { ascending: false }),
     supabase.from("recently_played").select("game_slug, last_played_at, play_count").eq("user_id", user.id).order("last_played_at", { ascending: false }).limit(30),
   ]);
@@ -29,6 +29,9 @@ export default async function ProfilePage() {
   const displayName = profile?.display_name || user.email?.split("@")[0] || "Player";
   const initials = displayName.slice(0, 1).toUpperCase();
   const totalPlays = (recentRows ?? []).reduce((total, row) => total + row.play_count, 0);
+  const xp = totalPlays * 10;
+  const level = Math.floor(xp / 100) + 1;
+  const levelProgress = xp % 100;
   const playedCategories = new Set(recent.map(({ game }) => game.category)).size;
   const achievements = [
     { title: "First game", detail: "Play your first game.", unlocked: totalPlays >= 1, icon: "🎮" },
@@ -61,8 +64,10 @@ export default async function ProfilePage() {
       <div className="profile-stats">
         <div><strong>{recent.length}</strong><span>Games played</span></div>
         <div><strong>{totalPlays}</strong><span>Total sessions</span></div>
-        <div><strong>{favourites.length}</strong><span>Favourites</span></div>
+        <div><strong>{xp}</strong><span>XP earned</span></div>
+        <div><strong>{level}</strong><span>Player level</span></div>
       </div>
+      <div className="level-progress-wrap"><div className="level-progress-copy"><span>LEVEL {level}</span><span>{levelProgress} / 100 XP to level {level + 1}</span></div><div className="level-progress-track"><div style={{width:`${levelProgress}%`}}/></div></div>
 
       <section className="profile-section">
         <div className="heading"><div><label><Sparkles size={12} style={{display:"inline",verticalAlign:"-2px"}}/> MILESTONES</label><h2>Achievements</h2></div><span className="profile-achievement-count">{achievements.filter((item) => item.unlocked).length} / {achievements.length} unlocked</span></div>
