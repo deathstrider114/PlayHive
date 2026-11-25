@@ -193,3 +193,15 @@ body::before{opacity:.24;background-size:30px 30px}
 @media(max-width:850px){.hero-new{grid-template-columns:1fr .8fr;gap:5px}.hero-new h1{font-size:clamp(48px,7vw,68px)}.stage-ring{width:310px}.stage-tile{width:175px;height:210px}.float-score{right:-8px}.browse-strip{margin-bottom:60px}}
 @media(max-width:620px){.shell{padding:12px 15px}.hero-new{display:flex;flex-direction:column;align-items:stretch;padding:52px 5px 24px}.hero-new h1{font-size:53px;letter-spacing:-3.5px}.hero-stage{height:310px;transform:scale(.9);margin:-3px 0}.stage-tile{width:165px;height:195px}.stage-ring{width:300px;height:150px}.float-score{top:8px;right:0}.float-pick{bottom:5px;left:0}.browse-strip{margin:0 0 58px;padding:14px;gap:10px}.browse-copy span{font-size:10px}.browse-link{font-size:0;gap:0}.browse-link svg{width:18px;height:18px}.section{margin:0 0 58px}.heading{align-items:flex-start}.heading h2{font-size:25px}.heading p{max-width:260px;line-height:1.6}.section-link{font-size:0;white-space:nowrap}.section-link svg{width:18px;height:18px}.home-game-grid{grid-template-columns:1fr}.game-card-art{height:155px}.join-new{margin:0 0 45px;padding:20px;flex-wrap:wrap}.join-new .button{margin-left:58px}.site-footer{align-items:flex-start;flex-direction:column}.library-page{padding:38px 0 60px}.library-intro h1{font-size:48px;letter-spacing:-2.8px}.library-controls{align-items:stretch;flex-direction:column}.library-search{max-width:none}.sort-control{justify-content:flex-start}.library-stats{gap:8px;flex-wrap:wrap}.topbar nav{display:none}}
 @media(prefers-reduced-motion:reduce){.stage-tile,.game-card,.category-pills a{transition:none!important}}
+
+
+/* Category directory tiles */
+.category-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.category-tile{min-height:190px;gap:18px;background:linear-gradient(145deg,rgba(255,255,255,.68),rgba(221,241,255,.42));}
+.category-tile-icon{display:flex;align-items:center;justify-content:space-between;color:#2d8bc8}
+.category-tile-icon>svg:first-child{width:42px;height:42px;padding:9px;border-radius:13px;background:rgba(91,183,242,.14);border:1px solid rgba(255,255,255,.9)}
+.category-tile strong{font-size:18px}
+.category-tile small{display:inline-block;max-width:220px;line-height:1.55;margin-top:6px}
+.category-tile em{font-style:normal;font-size:9px;font-weight:700;letter-spacing:.7px;color:#3a8cbe}
+@media(max-width:760px){.category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:480px){.category-grid{grid-template-columns:1fr}.category-tile{min-height:155px}}
